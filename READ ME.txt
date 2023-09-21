@@ -1,0 +1,33 @@
+9/21/23
+Starting vue client
+- when running 'vue create client' got: cannot be loaded because running scripts is disabled on this system
+	- To check this, run 'Get-ExecutionPolicy' and it should return Restricted
+	- To solve this, run 'Set-ExecutionPolicy -Scope CurrentUser -ExecutionPolicy "RemoteSigned"
+		- Make sure this worked, run 'Get-ExecutionPolicy' and it should return "RemoteSigned"
+	- Setup vue, 'vue create client'
+		- Set it back to restricted, 'Set-ExecutionPolicy -Scope CurrentUser -ExecutionPolicy Restricted'
+
+------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+9/21/23 6:30 PM
+Currently API works properly
+
+Update Posts works as expected
+Get Posts works as expected
+Add Posts works as expected
+
+Delete Posts currently causes the app to crash
+- "await posts.deleteOne({_id: new mongodb.ObjectID(req.params.id)" TypeError: mongodb.ObjectID is not a constructor
+- chatGPT said "Starting from version 4.x of the MongoDB Node.js driver, the mongodb package no longer exports the ObjectID constructor directly. Instead, you can use the bson package to create ObjectID instances."
+    - I tried to use the bson package to create ObjectID instances but got the same TypeError
+    - added:
+        - const { ObjectID } = require('bson');
+        - await posts.deleteOne({_id: new ObjectID(req.params.id)
+        - "bson": "^6.1.0",
+            - in the package.json folder
+- Original Code:
+    - [No bson line]
+    - await posts.deleteOne({ _id: new mongodb.ObjectID(req.params.id) });
+    - [no package line]
+
+If I need to in the future it's 'npm install bson'
