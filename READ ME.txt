@@ -1,4 +1,17 @@
-9/21/23
+9/23/23
+Preparing for build
+- Fixed an issue where Vue needed to have an element in the template
+	- Through the PostComponent and img into a div
+- Found an issue where when the text is too long it extends out of the box
+	- will wrap the text in a final project
+	- Resolved? []
+- Fixed the issue with promise being asynchronous
+	- Used a .then, .catch method
+- In the console of the terminal I got an error "66DPYF3B.js:1 Uncaught (in promise) Error: Cannot read properties of undefined (reading '_RUNTIME_')"
+	- Hoping this magically disappears
+------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+9/22/23 12:30 AM
 Starting vue client
 - when running 'vue create client' got: cannot be loaded because running scripts is disabled on this system
 	- To check this, run 'Get-ExecutionPolicy' and it should return Restricted
@@ -6,7 +19,26 @@ Starting vue client
 		- Make sure this worked, run 'Get-ExecutionPolicy' and it should return "RemoteSigned"
 	- Setup vue, 'vue create client'
 		- Set it back to restricted, 'Set-ExecutionPolicy -Scope CurrentUser -ExecutionPolicy Restricted'
+Creating Post Service
+- cd into client
+- npm i axios
+- npm run serve
+- has to be "import axios from 'axios';"
+- Current issue with having async in promise but will revisit
 
+Creating Post Component
+- Current issue with displaying the date of the posts
+	- For the date make sure you use ` instead of '
+
+I FINALLY FIXED DELETE
+- Okay I am really dumb but make sure it is:
+	- "await posts.deleteOne({ _id: new mongodb.ObjectId(req.params.id) });"
+	- and not, "await posts.deleteOne({ _id: new mongodb.ObjectId(req.params.id) });"
+	- basically, in the tutorial, online, and a bunch of other places have it as "ObjectID" when it's supposed to be "ObjectId"
+
+Leaving project here will add middle man next step.
+Known Issues:
+	-async in promise but will revisit
 ------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 9/21/23 6:30 PM
